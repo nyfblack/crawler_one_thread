@@ -10,10 +10,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
+
+//限制访问网页的速度
+var rateTime = time.Tick(100 * time.Millisecond)
 
 //获取网页内容，并转换为utf8格式输出
 func Fetch(url string) ([]byte, error) {
+	<-rateTime
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err

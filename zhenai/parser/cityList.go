@@ -13,7 +13,6 @@ func CityListParser(context []byte) engine.ParserResult {
 	result := re.FindAllSubmatch(context, -1)
 
 	var request engine.ParserResult
-	limilt := 2
 	for _, r := range result {
 		//解析的内容
 		request.Items = append(request.Items, "City: "+string(r[2]))
@@ -21,10 +20,6 @@ func CityListParser(context []byte) engine.ParserResult {
 			Url:    string(r[1]),
 			Parser: CityParser,
 		})
-		limilt--
-		if limilt < 0 {
-			break
-		}
 	}
 	return request
 }
